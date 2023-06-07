@@ -13,7 +13,6 @@ SCREEN_SIZE = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 pygame.init()
 
 screen = pygame.display.set_mode(SCREEN_SIZE)
-pygame.display.set_caption("Tetris")
 
 font = pygame.font.SysFont(None, 36)
 
@@ -237,7 +236,12 @@ while True:
             current_block.fall()
 
 def pass_state():
-    return (board, current_block)
+    tuple = board
+    for y in range(current_block.shape[x]):
+        for x in range(current_block.shape[y]):
+            tuple[current_block.position.x + x, current_block.posution.y + y] = current_block[x, y]
+
+    return tuple
 
 def receive_action():
     pass
