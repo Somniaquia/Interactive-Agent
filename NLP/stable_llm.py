@@ -25,11 +25,12 @@ system_prompt = """<|SYSTEM|># StableLM Tuned (Alpha version)
 prompt = f"{system_prompt}<|USER|>What's your mood today?<|ASSISTANT|>"
 
 inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
-tokens = model.generate(
-  **inputs,
-  max_new_tokens=64,
-  temperature=0.7,
-  do_sample=True,
-  stopping_criteria=StoppingCriteriaList([StopOnTokens()])
-)
+with autocast():
+  tokens = model.generate(
+    **inputs,
+    max_new_tokens=64,
+    temperature=0.7,
+    do_sample=True,
+    stopping_criteria=StoppingCriteriaList([StopOnTokens()])
+  )
 print(tokenizer.decode(tokens[0], skip_special_tokens=True))

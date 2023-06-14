@@ -197,9 +197,7 @@ while True:
             if rotate_available[0]:
                 current_block.try_rotate(1)
                 rotate_available[0] = False
-        else:
             rotate_available[0] = True
-        
         
         if pressed_keys[K_x]:
             if rotate_available[1]:
